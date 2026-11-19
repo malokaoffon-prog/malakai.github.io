@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ملك اقوى حدد AI | MALAK AI</title>
+<style>
+:root{--bg:#f1f7f3;--card:#fff;--tx:#12302a;--mut:#5d7a70;--ac:#0f766e;--gold:#b8892b;--bd:#d6e6de;--hero:linear-gradient(135deg,#0f766e,#115e59 60%,#134e4a);box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1512;--card:#112320;--tx:#e6f3ee;--mut:#8fb0a4;--bd:#1f3a33;--gold:#e0b04e}}
+:root[data-theme="dark"]{--bg:#0a1512;--card:#112320;--tx:#e6f3ee;--mut:#8fb0a4;--bd:#1f3a33;--gold:#e0b04e}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:"Amiri","Noto Naskh Arabic","Segoe UI",Tahoma,system-ui,sans-serif;line-height:1.9}
+.wrap{max-width:680px;margin:0 auto;padding:14px 14px 40px}
+.hero{background:var(--hero);color:#fff;border-radius:22px;padding:18px;text-align:center}
+.logo{font-size:2rem;font-weight:700;margin:0;letter-spacing:.5px}
+.logo span{color:#f3d58a;font-family:system-ui,sans-serif;font-size:1.5rem;margin-inline-start:6px}
+.hero p{margin:2px 0;opacity:.92}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin:14px 0 4px;padding-bottom:4px}
+.tab{flex:0 0 auto;padding:8px 14px;border:1px solid var(--bd);background:var(--card);color:var(--tx);border-radius:99px;font:inherit;cursor:pointer;white-space:nowrap}
+.tab.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:14px;margin-top:12px}
+select,input{width:100%;padding:9px 10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx);font:inherit}
+.row{display:flex;gap:8px;flex-wrap:wrap}.row>*{flex:1;min-width:130px}
+label{font-size:.85rem;color:var(--mut);display:block;margin:6px 0 2px}
+.next{text-align:center;padding:10px}
+.next b{display:block;font-size:1.3rem;color:var(--gold)}
+.count{font-size:2rem;font-variant-numeric:tabular-nums;direction:ltr}
+.pt{display:flex;justify-content:space-between;padding:9px 6px;border-bottom:1px dashed var(--bd);font-size:1.1rem}
+.pt:last-child{border:0}.pt.cur{background:var(--bd);border-radius:10px;font-weight:700}
+.btn{padding:9px 14px;border:0;border-radius:12px;background:var(--ac);color:#fff;font:inherit;cursor:pointer}
+.btn.alt{background:var(--bd);color:var(--tx)}
+.ayat{font-size:1.6rem;line-height:2.5;text-align:center}
+.bsm{text-align:center;font-size:1.5rem;color:var(--gold)}
+.num{color:var(--gold);font-size:1.1rem;margin:0 4px}
+.dh{display:flex;gap:10px;align-items:center;justify-content:space-between;padding:12px;border:1px solid var(--bd);border-radius:14px;margin:8px 0;background:var(--bg);width:100%;color:var(--tx);font:inherit;text-align:right;cursor:pointer}
+.dh .t{flex:1;font-size:1.15rem}.dh .c{min-width:48px;text-align:center;background:var(--ac);color:#fff;border-radius:10px;padding:2px 8px}
+.dh.done{opacity:.55}.dh.done .c{background:var(--gold)}
+.big{font-size:4rem;text-align:center;margin:6px 0;font-variant-numeric:tabular-nums}
+.ring{width:130px;height:130px;margin:10px auto;border:3px solid var(--ac);border-radius:50%;position:relative}
+.ring i{position:absolute;left:50%;top:6px;bottom:50%;width:4px;margin-left:-2px;background:var(--gold);border-radius:4px;transform-origin:bottom center}
+.sm{color:var(--mut);font-size:.9rem;text-align:center}
+.hid{display:none}
+footer{text-align:center;color:var(--mut);font-size:.8rem;margin-top:22px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<div class="hero">
+<h1 class="logo">ملك<span>AI</span></h1>
+<p>MALAK AI · رفيقك الإسلامي</p>
+<p id="dates" class="sm" style="color:#d6efe7"></p>
+</div>
+
+<div class="tabs" id="tabs">
+<button class="tab on" data-t="pray">🕌 المواعيد</button>
+<button class="tab" data-t="quran">📖 القرآن</button>
+<button class="tab" data-t="adhkar">📿 الأذكار</button>
+<button class="tab" data-t="tasbih">🔢 المسبحة</button>
+<button class="tab" data-t="qibla">🧭 القبلة</button>
+</div>
+
+<section id="pray">
+<div class="card">
+<label>اختاري المدينة</label>
+<select id="city"></select>
+<div class="row">
+<div><label>طريقة الحساب</label><select id="meth"></select></div>
+<div><label>العصر</label><select id="asr"><option value="1">الجمهور</option><option value="2">الحنفي</option></select></div>
+</div>
+<div class="row" style="margin-top:8px"><button class="btn alt" id="geo">📍 استخدم موقعي</button></div>
+<div id="geoerr" class="sm"></div>
+</div>
+<div class="card next"><span>الصلاة القادمة</span><b id="nname">—</b><div class="count" id="ncount">--:--:--</div></div>
+<div class="card" id="times"></div>
+<p class="sm">المواعيد محسوبة فلكياً داخل الموقع، وممكن تختلف دقيقة أو اتنين عن مسجدك. اعتمدي على التقويم الرسمي في بلدك.</p>
+</section>
+
+<section id="quran" class="hid">
+<div class="card"><label>اختاري السورة</label><select id="sura"></select></div>
+<div class="card"><div id="stext"></div></div>
+<p class="sm">سور قصيرة وآية الكرسي. المصحف الكامل هيتضاف في نسخة جاية بإذن الله.</p>
+</section>
+
+<section id="adhkar" class="hid">
+<div class="card"><select id="agrp"></select><p class="sm">اضغطي على الذكر عشان تعدّي التكرار.</p><div id="alist"></div></div>
+</section>
+
+<section id="tasbih" class="hid">
+<div class="card">
+<select id="tz"><option>سبحان الله</option><option>الحمد لله</option><option>الله أكبر</option><option>لا إله إلا الله</option><option>أستغفر الله</option><option>اللهم صل وسلم على نبينا محمد</option></select>
+<div class="big" id="tc">٠</div>
+<div class="row"><button class="btn" id="tadd" style="font-size:1.4rem;padding:16px">سبّح ✨</button><button class="btn alt" id="tres">من الأول</button></div>
+</div>
+</section>
+
+<section id="qibla" class="hid">
+<div class="card" style="text-align:center">
+<p>اتجاه القبلة من <b id="qc"></b></p>
+<div class="ring"><i id="qa"></i></div>
+<div class="big" id="qd" style="font-size:2.4rem">--</div>
+<p class="sm">الدرجة محسوبة من الشمال الحقيقي في اتجاه عقارب الساعة. الإبرة بتشاور على القبلة لو الشمال فوق.</p>
+</div>
+</section>
+
+<footer>صُنع بحب 🫰 · اقوى ملك AI · تقبل الله منا ومنكم</footer>
+</div>
+
+<script>
+const $=id=>document.getElementById(id);
+const AR=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+const C=[["القاهرة",30.04,31.24,"Africa/Cairo"],["الإسكندرية",31.2,29.92,"Africa/Cairo"],["مكة المكرمة",21.42,39.83,"Asia/Riyadh"],["المدينة المنورة",24.47,39.61,"Asia/Riyadh"],["الرياض",24.71,46.68,"Asia/Riyadh"],["جدة",21.54,39.17,"Asia/Riyadh"],["دبي",25.2,55.27,"Asia/Dubai"],["الدوحة",25.29,51.53,"Asia/Qatar"],["الكويت",29.38,47.99,"Asia/Kuwait"],["المنامة",26.23,50.59,"Asia/Bahrain"],["مسقط",23.59,58.41,"Asia/Muscat"],["بغداد",33.31,44.36,"Asia/Baghdad"],["دمشق",33.51,36.28,"Asia/Damascus"],["بيروت",33.89,35.5,"Asia/Beirut"],["عمّان",31.95,35.93,"Asia/Amman"],["القدس",31.77,35.21,"Asia/Jerusalem"],["صنعاء",15.37,44.19,"Asia/Aden"],["الخرطوم",15.5,32.56,"Africa/Khartoum"],["طرابلس",32.89,13.19,"Africa/Tripoli"],["تونس",36.81,10.18,"Africa/Tunis"],["الجزائر",36.75,3.06,"Africa/Algiers"],["الرباط",34.02,-6.84,"Africa/Casablanca"],["نواكشوط",18.08,-15.98,"Africa/Nouakchott"],["إسطنبول",41.01,28.98,"Europe/Istanbul"],["لندن",51.51,-0.13,"Europe/London"],["باريس",48.86,2.35,"Europe/Paris"],["برلين",52.52,13.4,"Europe/Berlin"],["مدريد",40.42,-3.7,"Europe/Madrid"],["موسكو",55.76,37.62,"Europe/Moscow"],["نيويورك",40.71,-74.01,"America/New_York"],["لوس أنجلوس",34.05,-118.24,"America/Los_Angeles"],["تورنتو",43.65,-79.38,"America/Toronto"],["ساو باولو",-23.55,-46.63,"America/Sao_Paulo"],["لاغوس",6.52,3.38,"Africa/Lagos"],["نيروبي",-1.29,36.82,"Africa/Nairobi"],["جوهانسبرج",-26.2,28.05,"Africa/Johannesburg"],["طهران",35.69,51.39,"Asia/Tehran"],["كابل",34.53,69.17,"Asia/Kabul"],["كراتشي",24.86,67.01,"Asia/Karachi"],["دلهي",28.61,77.21,"Asia/Kolkata"],["دكا",23.81,90.41,"Asia/Dhaka"],["جاكرتا",-6.21,106.85,"Asia/Jakarta"],["كوالالمبور",3.14,101.69,"Asia/Kuala_Lumpur"],["سنغافورة",1.35,103.82,"Asia/Singapore"],["طوكيو",35.68,139.69,"Asia/Tokyo"],["سيدني",-33.87,151.21,"Australia/Sydney"]];
+const M=[["الهيئة المصرية",19.5,17.5,0],["رابطة العالم الإسلامي",18,17,0],["أم القرى",18.5,0,90],["كراتشي",18,18,0],["أمريكا الشمالية",15,15,0]];
+const NM=["الفجر","الشروق","الظهر","العصر","المغرب","العشاء"];
+let cur={n:"",lat:30.04,lng:31.24,tz:"Africa/Cairo"};
+const R=Math.PI/180;
+function calc(y,m,d,lat,lng,mi,asr){
+  const D=Date.UTC(y,m,d,12)/864e5-10957.5,g=(357.529+.98560028*D)%360,q=(280.459+.98564736*D)%360;
+  const L=q+1.915*Math.sin(g*R)+.02*Math.sin(2*g*R),e=23.439-4e-7*D;
+  let ra=Math.atan2(Math.cos(e*R)*Math.sin(L*R),Math.cos(L*R))/R/15;ra=((ra%24)+24)%24;
+  const dec=Math.asin(Math.sin(e*R)*Math.sin(L*R)),eq=q/15-ra,noon=12-lng/15-((((eq+12)%24)+24)%24-12);
+  const T=a=>{const c=(Math.sin(a*R)-Math.sin(lat*R)*Math.sin(dec))/(Math.cos(lat*R)*Math.cos(dec));return Math.abs(c)>1?NaN:Math.acos(c)/R/15};
+  const ad=-Math.atan(1/(asr+Math.tan(Math.abs(lat*R-dec))))/R*-1;
+  const aA=Math.atan(1/(asr+Math.tan(Math.abs(lat*R-dec))))/R;
+  const me=M[mi],base=Date.UTC(y,m,d),H=h=>new Date(base+h*36e5);
+  const sr=T(-.833),mag=noon+sr;
+  return [H(noon-T(-me[1])),H(noon-sr),H(noon),H(noon+T(aA)),H(mag),H(me[3]?mag+me[3]/60:noon+T(-me[2]))];
+}
+function localYMD(date,tz){const p=new Intl.DateTimeFormat("en-CA",{timeZone:tz,year:"numeric",month:"2-digit",day:"2-digit"}).formatToParts(date).reduce((a,x)=>(a[x.type]=+x.value,a),{});return[p.year,p.month-1,p.day]}
+const fmt=(d,tz)=>isNaN(d)?"—":new Intl.DateTimeFormat("ar-EG",{hour:"numeric",minute:"2-digit",timeZone:tz}).format(d);
+function render(){
+  const now=new Date(),[y,m,d]=localYMD(now,cur.tz),mi=+$("meth").value,asr=+$("asr").value;
+  const t=calc(y,m,d,cur.lat,cur.lng,mi,asr);
+  $("dates").textContent=new Intl.DateTimeFormat("ar-SA-u-ca-islamic-umalqura",{day:"numeric",month:"long",year:"numeric",timeZone:cur.tz}).format(now)+" · "+new Intl.DateTimeFormat("ar-EG",{dateStyle:"full",timeZone:cur.tz}).format(now);
+  let ni=t.findIndex(x=>x>now);
+  const nextT=ni<0?calc(y,m,d+1,cur.lat,cur.lng,mi,asr)[0]:t[ni];
+  $("times").innerHTML=t.map((x,i)=>`<div class="pt${ni===i||(ni<0&&i===0&&0)?" cur":""}"><span>${NM[i]}</span><span>${fmt(x,cur.tz)}</span></div>`).join("");
+  $("nname").textContent=NM[ni<0?0:ni];
+  tick(nextT);
+  window._nx=nextT;
+}
+function tick(n){const s=Math.max(0,Math.floor(((n||window._nx)-new Date())/1e3));if(s===0&&window._nx&&new Date()>=window._nx){render();return}const h=Math.floor(s/3600),mm=Math.floor(s%3600/60),ss=s%60;$("ncount").textContent=[h,mm,ss].map(v=>String(v).padStart(2,"0")).join(":")}
+setInterval(()=>{if(window._nx)tick()},1000);
+function qibla(){
+  const a=cur.lat*R,b=21.4225*R,dl=(39.8262-cur.lng)*R;
+  const br=(Math.atan2(Math.sin(dl)*Math.cos(b),Math.cos(a)*Math.sin(b)-Math.sin(a)*Math.cos(b)*Math.cos(dl))/R+360)%360;
+  $("qd").textContent=AR(Math.round(br))+"°";$("qa").style.transform=`rotate(${br}deg)`;$("qc").textContent=cur.n;
+}
+function setCity(c){cur=c;qibla();render();try{localStorage.setItem("malk_city",c.n)}catch(e){}}
+$("city").innerHTML=C.map((c,i)=>`<option value="${i}">${c[0]}</option>`).join("");
+$("meth").innerHTML=M.map((m,i)=>`<option value="${i}">${m[0]}</option>`).join("");
+const pick=()=>{const c=C[+$("city").value];setCity({n:c[0],lat:c[1],lng:c[2],tz:c[3]})};
+$("city").onchange=pick;$("meth").onchange=render;$("asr").onchange=render;
+try{const s=localStorage.getItem("malk_city"),i=C.findIndex(c=>c[0]===s);if(i>=0)$("city").value=i}catch(e){}
+$("geo").onclick=()=>{
+  $("geoerr").textContent="";
+  if(!navigator.geolocation){$("geoerr").textContent="المتصفح مش بيدعم تحديد الموقع، اختاري مدينتك من القائمة.";return}
+  navigator.geolocation.getCurrentPosition(p=>setCity({n:"موقعك الحالي",lat:p.coords.latitude,lng:p.coords.longitude,tz:Intl.DateTimeFormat().resolvedOptions().timeZone}),()=>{$("geoerr").textContent="مقدرتش أحدد موقعك هنا، اختاري مدينتك من القائمة."},{timeout:8000});
+};
+pick();
+
+const S=[
+["الفاتحة",["بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ","الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ","الرَّحْمَٰنِ الرَّحِيمِ","مَالِكِ يَوْمِ الدِّينِ","إِيَّاكَ نَعْبُدُ وَإِيَّاكَ نَسْتَعِينُ","اهْدِنَا الصِّرَاطَ الْمُسْتَقِيمَ","صِرَاطَ الَّذِينَ أَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوبِ عَلَيْهِمْ وَلَا الضَّالِّينَ"],0],
+["آية الكرسي (البقرة ٢٥٥)",["اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَّهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَن ذَا الَّذِي يَشْفَعُ عِندَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِّنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ"],0],
+["العصر",["وَالْعَصْرِ","إِنَّ الْإِنسَانَ لَفِي خُسْرٍ","إِلَّا الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ وَتَوَاصَوْا بِالْحَقِّ وَتَوَاصَوْا بِالصَّبْرِ"],1],
+["الكوثر",["إِنَّا أَعْطَيْنَاكَ الْكَوْثَرَ","فَصَلِّ لِرَبِّكَ وَانْحَرْ","إِنَّ شَانِئَكَ هُوَ الْأَبْتَرُ"],1],
+["النصر",["إِذَا جَاءَ نَصْرُ اللَّهِ وَالْفَتْحُ","وَرَأَيْتَ النَّاسَ يَدْخُلُونَ فِي دِينِ اللَّهِ أَفْوَاجًا","فَسَبِّحْ بِحَمْدِ رَبِّكَ وَاسْتَغْفِرْهُ إِنَّهُ كَانَ تَوَّابًا"],1],
+["الإخلاص",["قُلْ هُوَ اللَّهُ أَحَدٌ","اللَّهُ الصَّمَدُ","لَمْ يَلِدْ وَلَمْ يُولَدْ","وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ"],1],
+["الفلق",["قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ","مِن شَرِّ مَا خَلَقَ","وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ","وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ","وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ"],1],
+["الناس",["قُلْ أَعُوذُ بِرَبِّ النَّاسِ","مَلِكِ النَّاسِ","إِلَٰهِ النَّاسِ","مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ","الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ","مِنَ الْجِنَّةِ وَالنَّاسِ"],1]
+];
+$("sura").innerHTML=S.map((s,i)=>`<option value="${i}">${s[0]}</option>`).join("");
+function sura(){const s=S[+$("sura").value];$("stext").innerHTML=(s[2]?`<div class="bsm">بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ</div>`:"")+`<div class="ayat">`+s[1].map((a,i)=>`${a}<span class="num">﴿${AR(i+1)}﴾</span>`).join(" ")+`</div>`}
+$("sura").onchange=sura;sura();
+
+const A={"أذكار الصباح والمساء":[["أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ",3],["بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ",3],["رَضِيتُ بِاللَّهِ رَبًّا وَبِالْإِسْلَامِ دِينًا وَبِمُحَمَّدٍ ﷺ نَبِيًّا",3],["حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ",7],["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",100]],
+"بعد الصلاة":[["أَسْتَغْفِرُ اللَّهَ",3],["سُبْحَانَ اللَّهِ",33],["الْحَمْدُ لِلَّهِ",33],["اللَّهُ أَكْبَرُ",33],["لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ",1]],
+"أذكار عامة":[["لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",10],["سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، سُبْحَانَ اللَّهِ الْعَظِيمِ",10],["اللَّهُمَّ صَلِّ وَسَلِّمْ عَلَى نَبِيِّنَا مُحَمَّدٍ",10],["أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ",10]]};
+$("agrp").innerHTML=Object.keys(A).map(k=>`<option>${k}</option>`).join("");
+function adhkar(){const l=$("alist");l.innerHTML="";A[$("agrp").value].forEach(([t,c])=>{let n=c;const b=document.createElement("button");b.className="dh";b.innerHTML=`<span class="t">${t}</span><span class="c">${AR(n)}</span>`;b.onclick=()=>{if(n>0)n--;b.querySelector(".c").textContent=AR(n);b.classList.toggle("done",n===0);try{navigator.vibrate&&navigator.vibrate(15)}catch(e){}};l.appendChild(b)})}
+$("agrp").onchange=adhkar;adhkar();
+
+let tc=0;
+$("tadd").onclick=()=>{tc++;$("tc").textContent=AR(tc);try{navigator.vibrate&&navigator.vibrate(20)}catch(e){}};
+$("tres").onclick=()=>{tc=0;$("tc").textContent=AR(0)};
+$("tz").onchange=$("tres").onclick;
+
+document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("on",x===b));
+  ["pray","quran","adhkar","tasbih","qibla"].forEach(k=>$(k).classList.toggle("hid",k!==b.dataset.t));
+});
+</script>
+</body>
+</html>
